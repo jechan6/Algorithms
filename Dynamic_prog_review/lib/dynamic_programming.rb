@@ -61,7 +61,25 @@ class DynamicProgramming
   end
 
   def super_frog_hops(n, k)
+    ways_collection = [[[]], [[1]]]
+    return ways_collection[n] if n < 2
 
+    (2..n).each do |i|
+      new_way_set = []
+
+      (1..3).each do |first_step|
+        ways_collection[i-first_step].each do |way|
+          new_way = [first_step]
+          
+          way.each do |step|
+            new_way << step 
+          end 
+          new_way_set << new_way
+        end 
+      end 
+      ways_collection << new_way_set
+    end 
+    ways_collection[n]
   end
 
   def knapsack(weights, values, capacity)
