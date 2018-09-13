@@ -67,7 +67,7 @@ class DynamicProgramming
     (2..n).each do |i|
       new_way_set = []
 
-      (1..3).each do |first_step|
+      (1..k).each do |first_step|
         ways_collection[i-first_step].each do |way|
           new_way = [first_step]
           
