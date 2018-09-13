@@ -68,6 +68,7 @@ class DynamicProgramming
       new_way_set = []
 
       (1..k).each do |first_step|
+        break if i-first_step < 0
         ways_collection[i-first_step].each do |way|
           new_way = [first_step]
           
@@ -83,13 +84,47 @@ class DynamicProgramming
   end
 
   def knapsack(weights, values, capacity)
-
+    knapsack_table_v2(weights,values,capacity)[-1][-1]
   end
 
   # Helper method for bottom-up implementation
   def knapsack_table(weights, values, capacity)
-
+    table = Array.new(weights.length){Array.new(capacity+1)}
+    (0...weights.length).each do |row|
+      (0..capacity).each do |col|
+        if col < weights[row]
+          table[row][col] = 0 if row == 0
+          table[row][col] = table[row-1][col] if row != 0
+        else 
+          val = values[row]
+          weight = weights[row]
+          leftover = table[row-1][col-weight].nil? ? 0 : table[row-1][col-weight]
+          prev_max = row == 0 ? val : table[row-1][col]
+          table[row][col] = [prev_max, val +leftover].max
+        end 
+      end 
+    end 
+    table
   end
+
+  def knapsack_table_v2(weights, values, capacity)
+    solution_table = []
+    (0..capacity).each do |i|
+      solution_table[i] = []
+      (0...weights.length).each do |j|
+        if i == 0
+          solution_table[i][j] = 0
+        elsif j == 0
+          solution_table[i][j] = i < weights[0] ? 0 : values[0]
+        else 
+          option1 = solution_table[i][j-1]
+          option2 = i < weights[j] ? 0 : solution_table[i- weights[j]][j-1] + values[j]
+          solution_table[i][j] = [option1, option2].max
+        end 
+      end 
+    end 
+    solution_table
+  end 
 
   def maze_solver(maze, start_pos, end_pos)
   end
