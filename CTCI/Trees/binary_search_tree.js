@@ -44,6 +44,25 @@ class BinarySearchTree {
         }
         
     }
+    bfs(node=this.root) {
+        const result = [];
+        let queue = [];
+        queue.push(node);
+        result.push(node.value);
+        while(queue.length !== 0) {
+            let el = queue.shift();
+            if (el.right) {
+                result.push(el.right.value);
+                queue.push(el.right);
+            }
+            if(el.left) {
+                result.push(el.left.value);
+                queue.push(el.left);
+            }
+            
+        }
+        return result;
+    }
     in_order_traversal(node = this.root, arr = []) {
         if(!node) return;
         this.in_order_traversal(node.left, arr);
@@ -75,5 +94,6 @@ search.insert(4);
 search.insert(2);
 search.insert(1);
 
-console.log(search.in_order_traversal());
-console.log(search.is_balanced());
+// console.log(search.in_order_traversal());
+// console.log(search.is_balanced());
+console.log(search.bfs());
