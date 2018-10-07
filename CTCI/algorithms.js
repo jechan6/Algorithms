@@ -12,3 +12,20 @@ const permute = function(nums){
     }
     return res
 }
+
+var reverseLinkedList2 = function (head, m, n) {
+    if (head === null) return null;
+    let dummy = new ListNode(0);
+    dummy.next = head;
+    let curr = dummy;
+    for (let i = 0; i < m - 1; i++) curr = curr.next;
+    let start = curr.next;
+    let last = start.next;
+    for (let i = 0; i < n - m; i++) {
+        start.next = last.next;
+        last.next = curr.next;
+        curr.next = last;
+        last = start.next;
+    }
+    return dummy.next;
+};
