@@ -27,3 +27,23 @@ var maxProfit = function(prices) {
     }
       return maxProfit;
   };
+
+
+// Input: 3
+// Output: 3
+// Explanation: There are three ways to climb to the top.
+// 1. 1 step + 1 step + 1 step
+// 2. 1 step + 2 steps
+// 3. 2 steps + 1 step
+var climbStairs = function(n) {
+    const arr = helper(n);
+    return arr[n-1];
+};
+
+function helper(n) {
+    if(n===1) return [1];
+    if(n===2) return [1,2];
+    let arr = helper(n-1);
+    arr.push(arr[arr.length-2] + arr[arr.length-1]);
+    return arr;
+}
