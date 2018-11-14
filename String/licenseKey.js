@@ -18,3 +18,15 @@ var licenseKeyFormatting = function(S, K) {
 
     return subStr+license;
 };
+
+
+var licenseKeyFormatting = function(S, K) {
+    const raw = S.replace(/-/g, '').toUpperCase();
+    let length = raw.length;
+    let license = [];
+    while(length > 0) {
+        license.push(raw.substring(length-K, length));
+        length -= K;
+    }
+    return license.reverse().join("-");
+};
