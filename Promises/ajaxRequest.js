@@ -46,7 +46,6 @@ function makeRequest(s,p, cb) {
     }
   }
 
- 
 }
 
 getCountries("un", 100000);
